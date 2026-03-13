@@ -45,7 +45,7 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="根据 WhisperX JSON 提取特定说话人音频")
     parser.add_argument("--audio", type=str, required=True, help="原始音频/视频路径")
-    parser.add_argument("--json", type=str, required=True, help="WhisperX 生成的 JSON 文件路径")
+    parser.add_argument("--json", type=str, default="test_result.json",required=True, help="WhisperX 生成的 JSON 文件路径")
     parser.add_argument("--speaker", type=str, required=True, help="目标说话人标签 (如 SPEAKER_00)")
     parser.add_argument("--output", type=str, default="output.wav", help="输出音频的保存路径")
     args = parser.parse_args()
