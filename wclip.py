@@ -37,7 +37,16 @@ def main(args):
     # 4. 导出最终干音
     if len(speaker_audio) > 0:
         speaker_audio.export(args.output, format="wav")
-        print(f"[+] 提取成功！保存路径: {args.output}")
+        
+        # --- 新增：将该说话人的所有台词合并，并保存为同名的 .txt 文件 ---
+        text_output_path = args.output.replace(".wav", ".txt")
+        with open(text_output_path, "w", encoding="utf-8") as f:
+            # WhisperX 切出的文本可能带空格，我们用空格拼起来
+            f.write(" ".join(text_transcript).strip())
+        # -------------------------------------------------------------
+        
+        print(f"[+] 提取成功！音频保存路径: {args.output}")
+        print(f"[+] 文本已同步保存至: {text_output_path}")
         print(f"[*] 提取总时长: {len(speaker_audio) / 1000:.2f} 秒")
     else:
         print(f"[-] 提取失败：JSON 数据中未找到说话人 {args.speaker}。")
